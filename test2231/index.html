@@ -1,0 +1,381 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#163c4b"><title>SB23 Floorplan 2.2.31 TEST</title><style>*{box-sizing:border-box}body{margin:0;font:15px system-ui,-apple-system,sans-serif;color:#203540;background:#f3f6f7}header{background:#163c4b;color:white;padding:13px 17px;display:flex;justify-content:space-between;align-items:center}header b{font-size:20px}button,select,input{font:inherit}button{background:white;border:1px solid #c7d4d9;border-radius:9px;padding:10px 12px;color:#183b49;cursor:pointer}button.active{background:#167d80;color:white}button:disabled{opacity:.45}.tools{display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:white;border-bottom:1px solid #d9e1e4}.tools label{display:flex;align-items:center;gap:5px}main{position:relative;height:calc(100dvh - 158px);min-height:330px;overflow:hidden;touch-action:none}svg{display:block;width:100%;height:100%;touch-action:none;background:#fff}#status{position:absolute;left:12px;bottom:12px;background:#ffffffec;border:1px solid #d9e1e4;border-radius:8px;padding:8px;font-size:13px;pointer-events:none}footer{display:flex;gap:8px;padding:9px;align-items:center;flex-wrap:wrap}dialog{border:0;border-radius:14px;padding:22px;max-width:min(92vw,410px);box-shadow:0 10px 45px #0004}dialog::backdrop{background:#0005}dialog input{padding:10px;width:100%;border:1px solid #abbfc7;border-radius:8px;margin:9px 0}dialog menu{display:flex;justify-content:flex-end;gap:8px;padding:0;margin:12px 0 0}#live{position:absolute;display:none;background:#167d80;color:white;padding:5px 9px;border-radius:7px;pointer-events:none;font-weight:600}small{color:#506975}@media(max-width:650px){main{height:calc(100dvh - 205px)}.tools button{padding:8px}.tools{gap:5px}}
+/* 2.2.17: vaste bediening, onafhankelijk van het tekengebied */
+html,body{height:100%;height:100dvh;overflow:hidden}
+body{display:flex;flex-direction:column;min-height:0}
+header{flex:0 0 auto;min-height:48px}
+.tools{flex:0 0 auto;max-height:34dvh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;position:relative;z-index:2}
+main,main:not(.unused){flex:1 1 auto;height:auto!important;min-height:0!important;overflow:hidden}
+footer{flex:0 0 auto;max-height:28dvh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:#f3f6f7;position:relative;z-index:2;padding-bottom:max(9px,env(safe-area-inset-bottom))}
+@media(max-width:650px){main{height:auto!important;min-height:0!important}}
+
+#wallMeasure{min-width:98px;font-weight:700;background:#e8f1f2;border-color:#a4c8cb}#wallMeasure:not(:disabled){background:#d7eeee;color:#12575c;border-color:#167d80}#zoomIn,#zoomOut{font-weight:750;font-size:17px!important;min-width:34px}
+/* 2.2.17: compacte, vaste iPad-bediening met maximaal tekenoppervlak */
+header{padding:5px 11px;min-height:34px}
+header b{font-size:15px}
+header span{font-size:11px}
+.tools{padding:5px 7px;gap:4px;max-height:25dvh;align-content:flex-start}
+.tools button{font-size:11px;line-height:1.15;padding:6px 7px;border-radius:6px;min-height:30px;white-space:nowrap}
+.tools label{font-size:11px;gap:3px;white-space:nowrap;min-height:30px}
+.tools input[type=checkbox]{width:13px;height:13px;margin:0 2px}
+footer{padding:5px 7px;padding-bottom:max(5px,env(safe-area-inset-bottom));gap:5px;max-height:20dvh}
+footer button,footer select{font-size:11px;line-height:1.15;padding:6px 7px;border-radius:6px;min-height:30px}
+footer label{font-size:11px;white-space:nowrap}
+#status{font-size:11px;padding:5px 7px;bottom:6px;left:6px;max-width:min(95%,600px)}
+@media(max-width:650px){.tools{padding:4px;gap:3px}.tools button{font-size:10px;padding:5px 6px;min-height:29px}footer button,footer select{font-size:10px;padding:5px 6px}}
+/* 2.2.17: inklapbare onderbalk; de bedieningsstrip blijft altijd zichtbaar */
+#footerToggle{flex:0 0 auto;align-self:stretch;display:flex;align-items:center;justify-content:center;gap:8px;min-height:32px;padding:5px 12px;border-radius:0;border-left:0;border-right:0;border-bottom:0;background:#e8f1f2;color:#163c4b;font-size:12px;font-weight:650;touch-action:manipulation;z-index:3}
+#footerToggle:focus-visible{outline:3px solid #167d80;outline-offset:-3px}
+footer[hidden]{display:none!important}
+footer{min-height:0}
+.room-dialog{width:min(94vw,460px);max-height:85dvh;overflow:auto}.room-dialog select{width:100%;padding:10px;margin:10px 0;border:1px solid #aabdc5;border-radius:8px;background:white}.room-note{font-size:13px;color:#536d77}.room-add{display:flex;gap:6px;align-items:center}.room-add input{min-width:0;flex:1}.room-add button{white-space:nowrap}.room-list{max-height:230px;overflow:auto;border:1px solid #d5e0e4;border-radius:8px;margin:8px 0}.room-entry{display:flex;align-items:center;gap:5px;padding:5px 7px;border-bottom:1px solid #e4eaed}.room-entry:last-child{border:0}.room-entry span{flex:1;overflow-wrap:anywhere}.room-entry button{padding:6px 8px;font-size:12px}.room-dialog menu{flex-wrap:wrap}.room-dialog button{touch-action:manipulation}.sb-dialog{width:min(94vw,510px);max-height:85dvh;overflow:auto}.sb-dialog label{display:block;margin:12px 0;font-size:14px}.sb-dialog select,.sb-dialog input:not([type=checkbox]){width:100%;padding:9px;border:1px solid #b5c5cb;border-radius:7px;background:#fff;margin-top:5px}.sb-dialog menu{display:flex;justify-content:flex-end;gap:8px}.sb-list{max-height:38dvh;overflow:auto;margin:12px 0;border:1px solid #d9e1e4;border-radius:7px}.sb-project-row{display:flex;gap:6px;align-items:center;padding:8px;border-bottom:1px solid #e2e9ed;flex-wrap:wrap}.sb-project-row strong{flex:1;min-width:120px;overflow-wrap:anywhere}.sb-project-row button{padding:6px 8px;font-size:12px}.sb-project-row.current{background:#eaf5f4}#projectDialog .room-add input{width:auto;flex:1;min-width:0}
+/* 2.2.17: project en verdieping duidelijk in beeld; iPad-toetsenbordvriendelijk */
+#projectBanner{flex:0 0 auto;display:flex;gap:7px;align-items:center;min-height:27px;padding:4px 11px;background:#e8f1f2;color:#153b48;font-size:13px;font-weight:650;overflow:hidden;white-space:nowrap}
+#activeProjectLabel{overflow:hidden;text-overflow:ellipsis;max-width:55vw}#activeFloorLabel{overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+#projectDialog{width:min(95vw,520px);max-height:min(85dvh,700px);overflow-y:auto}
+#projectDialog #projectNew{font-size:16px!important;min-height:44px;width:100%;flex:1;min-width:0;user-select:text;-webkit-user-select:text;touch-action:manipulation}
+#projectDialog .room-add{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
+#projectDialog .room-add button{min-height:44px}
+#projectDialog .sb-project-row input{font-size:16px;flex:1;min-width:130px;width:auto;user-select:text;-webkit-user-select:text}
+#projectDialog button{touch-action:manipulation}
+/* 2.2.31: opslagstatus altijd zichtbaar */
+#saveIndicator{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:3px 11px;background:#edf5f4;color:#165b4e;font-size:11px;font-weight:600;min-height:23px}
+#saveIndicator[data-state="saving"]{background:#fff5de;color:#825900}
+#saveIndicator[data-state="error"]{background:#fff0ed;color:#a12d23}
+
+/* 2.2.31: vaste bedieningsbalken; alleen de SVG-inhoud wordt geschaald */
+html,body{width:100%;height:100%;height:100dvh;overflow:hidden;overscroll-behavior:none}
+body{display:flex!important;flex-direction:column!important;min-height:0!important}
+header,#projectBanner,#saveIndicator,.tools,#footerToggle,footer{flex-shrink:0!important;transform:none!important;zoom:1!important}
+main{position:relative!important;flex:1 1 0!important;min-height:0!important;height:auto!important;overflow:hidden!important;touch-action:none!important}
+#drawing{width:100%!important;height:100%!important;touch-action:none!important;user-select:none;-webkit-user-select:none}
+.tools{overflow-y:auto;max-height:25dvh;touch-action:pan-y}
+footer{overflow-y:auto;max-height:20dvh;touch-action:pan-y}
+#footerToggle{touch-action:manipulation}
+
+/* 2.2.31: viewport-vaste bediening, zonder Safari-paginascroll */
+html{position:fixed;inset:0;width:100%;height:100%;height:100dvh;overflow:hidden}
+body{position:fixed;inset:0;width:100%;height:100%;height:100dvh;
+     display:flex;flex-direction:column;overflow:hidden;overscroll-behavior:none}
+header,#projectBanner,#saveIndicator,.tools,#footerToggle,footer{
+  position:relative;flex:0 0 auto;min-width:0;scale:1;transform:none}
+main{flex:1 1 0;min-height:0;min-width:0;overflow:hidden;position:relative}
+#drawing{display:block;width:100%;height:100%;touch-action:none}
+.tools{max-height:25dvh;overflow-y:auto;overscroll-behavior:contain}
+footer{max-height:20dvh;overflow-y:auto;overscroll-behavior:contain}
+</style></head><body><header><b>SB23 <span style="font-weight:400">Floorplan</span></b><span>Versie 2.2.31 · TEST</span></header><div id="projectBanner" role="status" aria-live="polite"><span id="activeProjectLabel"></span><span class="project-sep">—</span><span id="activeFloorLabel"></span></div><div id="saveIndicator" role="status" aria-live="polite" data-state="saving">◌ Opslag controleren…</div><div class="tools"><button id="wall">✏️ Muur</button><button id="room">▭ Kamer</button><button id="stairs">▤ Trap</button><button id="name">Aa Ruimtenaam</button><button id="select">☝️ Selecteren</button><button id="boxselect">▧ Selectiekader</button><button id="deselect">✕ Deselecteren</button><button id="deleteselection" style="color:#ad3030;border-color:#d9a8a8">🗑 Wis selectie</button><button id="move">↔ Verplaats selectie</button><button id="endpoint">◎ Eindpunten aanpassen</button><button id="stairsize">▤ Trap / tekstgrootte</button><button id="stairrotate">↻ Draai 90°</button><button id="erase">⌫ Wis lijn</button><button id="cut">✂ Wis stuk</button><button id="trim">✂ Bijknippen</button><button id="undo">↶ Ongedaan</button><button id="fit">⤢ Passend</button><button id="zoomIn" type="button" title="Inzoomen">＋</button><button id="zoomOut" type="button" title="Uitzoomen">－</button><button id="wallMeasure" type="button" disabled title="Selecteer één muur om de lengte te wijzigen" aria-label="Geselecteerde muurlengte aanpassen">Maat: —</button><label><input type="checkbox" id="straight" checked> Automatisch recht</label><label><input type="checkbox" id="lengthsnap" checked> Slimme lengtesnap</label><label><input type="checkbox" id="dims" checked> Maten tonen</label></div><main><svg id="drawing" xmlns="http://www.w3.org/2000/svg"><g id="viewport"><g id="grid"></g><g id="objects"></g><g id="preview"></g></g></svg><div id="live"></div><div id="status">Kamers hebben vier afzonderlijke muren. Selecteren verplaatst niets. Gebruik Verplaats selectie om bewust te verschuiven.</div></main><button type="button" id="footerToggle" aria-controls="bottomTools" aria-expanded="false">⌃ &nbsp; Ondermenu openen</button><footer id="bottomTools" hidden><label><span id="floorPickerLabel">Verdieping</span> <select id="floor"><option>Gelijkvloers</option><option>Eerste verdieping</option><option>Tweede verdieping</option><option>Kelder</option><option>Zolder</option></select></label><button id="duplicate">⧉ Verdieping kopiëren</button><button id="projects">📁 Projecten</button><button id="backup">⬇ Projectbestand</button><button id="restore">⬆ Project openen</button><input type="file" id="restoreFile" accept=".json,application/json" hidden><button id="save">Bewaar</button><button id="export">Exporteer SVG</button><button id="print">Print / PDF</button><button id="clear">Wis verdieping</button></footer><dialog id="projectDialog" class="sb-dialog"><b>Mijn projecten</b><p class="room-note">Kies een woning uit de lijst, of geef hieronder een naam in om een nieuwe woning aan te maken.</p><p class="room-note">Projecten worden automatisch op dit toestel opgeslagen. Maak regelmatig een reservekopie via Projectbestand.</p><div id="projectList" class="sb-list"></div><div class="room-add"><input id="projectNew" type="text" inputmode="text" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" maxlength="100" aria-label="Naam nieuw project" placeholder="Tik hier om de projectnaam te typen"><button id="projectCreate" type="button">+ Nieuw</button></div><menu><button id="projectClose" type="button">Sluiten</button></menu></dialog><dialog id="floorCopyDialog" class="sb-dialog"><b>Verdieping kopiëren</b><label>Van verdieping<select id="copyFrom"></select></label><label>Naar verdieping<select id="copyTo"></select></label><label><input type="checkbox" id="copyWalls"> Alleen muren en trappen kopiëren</label><p class="room-note">Bij een bestaande verdieping worden de aanwezige onderdelen na bevestiging vervangen. De kopie is onafhankelijk bewerkbaar.</p><menu><button id="copyCancel" type="button">Annuleer</button><button id="copyApply" class="active" type="button">Kopiëren</button></menu></dialog><dialog id="roomDialog" class="room-dialog"><b>Ruimtenaam kiezen</b><p class="room-note">Kies een ruimte of beheer je eigen benamingen.</p><select id="roomChoice" aria-label="Ruimtenaam"></select><div id="roomManage" hidden><div class="room-add"><input id="roomNew" placeholder="Nieuwe ruimtenaam" maxlength="80"><button id="roomAdd" type="button">+ Toevoegen</button></div><div id="roomList" class="room-list"></div><small>Wijzigingen aan deze lijst veranderen geen bestaande plannen.</small></div><menu><button id="roomManageToggle" type="button">⚙ Beheer namen</button><button id="roomCancel" type="button">Annuleer</button><button id="roomApply" type="button" class="active">Plaatsen</button></menu></dialog><dialog id="textSizeDialog" class="sb-dialog"><b>Grootte ruimtenaam</b><p class="room-note">Pas de tekstgrootte van de geselecteerde ruimtenaam aan.</p><label>Tekstgrootte <input id="textSizeValue" type="number" min="10" max="80" step="1" inputmode="numeric"></label><menu><button id="textSizeCancel" type="button">Annuleer</button><button id="textSizeApply" type="button" class="active">Toepassen</button></menu></dialog><dialog id="editor"><b id="editorTitle">Afmeting</b><div id="editorHint"><small>Lengte in meter</small></div><input id="editValue" autocomplete="off" inputmode="decimal"><menu><button id="cancel">Annuleer</button><button id="delete" style="color:#ae3333">Verwijder</button><button id="apply" class="active">Toepassen</button></menu></dialog><script>
+(()=>{'use strict';
+  const toggle=document.getElementById('footerToggle');
+  const bottom=document.getElementById('bottomTools');
+  // Standaard ingeklapt: meer ruimte voor het tekengebied.
+  function setExpanded(expanded){
+    bottom.hidden=!expanded;
+    toggle.setAttribute('aria-expanded',String(expanded));
+    toggle.textContent=expanded?'⌄  Ondermenu sluiten':'⌃  Ondermenu openen';
+  }
+  setExpanded(false);
+  toggle.addEventListener('click',()=>setExpanded(bottom.hidden));
+})();
+</script><script>
+(()=>{'use strict';const svg=document.getElementById('drawing'),vp=document.getElementById('viewport'),objects=document.getElementById('objects'),preview=document.getElementById('preview'),grid=document.getElementById('grid'),live=document.getElementById('live'),status=document.getElementById('status'),floorEl=document.getElementById('floor'),dims=document.getElementById('dims'),straight=document.getElementById('straight'),lengthsnap=document.getElementById('lengthsnap');const NS='http://www.w3.org/2000/svg';let mode='pan',start=null,drag=null,selected=null,editing=null,zoom=1,offset={x:0,y:0};let multi=new Set(),boxStart=null;let history=[];let cutStart=null;let touches=new Map(),gesture=null;const STORE='sb23floorplan_projects_v2216';let collection={},activeProject='';let project={};try{const stored=JSON.parse(localStorage.getItem(STORE)||'null');if(stored&&stored.projects&&typeof stored.projects==='object'&&stored.active&&stored.projects[stored.active]){collection=stored.projects;activeProject=stored.active;project=collection[activeProject].floors||{}}else{let legacy={};try{legacy=JSON.parse(localStorage.getItem('sb23floorplan_test2215')||localStorage.getItem('sb23floorplan_test2213')||localStorage.getItem('sb23floorplan_test2210')||'{}')}catch{};activeProject='Project 1';project=legacy;collection[activeProject]={floors:project,updated:new Date().toISOString()}}}catch{activeProject='Project 1';project={};collection[activeProject]={floors:project,updated:new Date().toISOString()}};let floor='Gelijkvloers';
+const DEFAULT_ROOM_NAMES=['Badkamer','Berging','Bureau','Douchekamer','Eetkamer','Garage','Inkomhal','Keuken','Kelder','Leefruimte','Nachthal','Slaapkamer','Terras','Toilet','Traphal','Wasplaats','Zolder'];
+const ROOM_STORE='sb23floorplan_roomnames_v1';
+let roomNames;
+try {const saved=JSON.parse(localStorage.getItem(ROOM_STORE)||'null');roomNames=Array.isArray(saved)?saved.filter(x=>typeof x==='string'&&x.trim()):[...DEFAULT_ROOM_NAMES]}catch{roomNames=[...DEFAULT_ROOM_NAMES]}
+function cleanRoomNames(){roomNames=[...new Map(roomNames.map(x=>[x.trim().toLocaleLowerCase('nl'),x.trim()])).values()].filter(Boolean).sort((a,b)=>a.localeCompare(b,'nl',{sensitivity:'base'}))}
+function saveRoomNames(){cleanRoomNames();try{localStorage.setItem(ROOM_STORE,JSON.stringify(roomNames))}catch(e){console.warn('Ruimtenamen konden niet worden opgeslagen',e)}}
+cleanRoomNames();
+const roomDialog=document.getElementById('roomDialog'),roomChoice=document.getElementById('roomChoice'),roomManage=document.getElementById('roomManage'),roomList=document.getElementById('roomList'),roomNew=document.getElementById('roomNew');
+let roomPlacement=null;
+function fillRoomChoice(prefer){const old=prefer||roomChoice.value;roomChoice.replaceChildren();for(const n of roomNames){const opt=document.createElement('option');opt.value=n;opt.textContent=n;roomChoice.append(opt)}if(roomNames.includes(old))roomChoice.value=old;else if(roomNames.includes('Leefruimte'))roomChoice.value='Leefruimte'}
+function drawRoomList(){roomList.replaceChildren();for(const n of roomNames){const r=document.createElement('div');r.className='room-entry';const t=document.createElement('span');t.textContent=n;const edit=document.createElement('button');edit.type='button';edit.textContent='✎';edit.title='Naam wijzigen';edit.onclick=()=>{const v=prompt('Wijzig de ruimtenaam:',n);if(v===null)return;const trimmed=v.trim();if(!trimmed)return alert('Geef een naam in.');if(roomNames.some(x=>x!==n&&x.toLocaleLowerCase('nl')===trimmed.toLocaleLowerCase('nl')))return alert('Deze naam bestaat al.');roomNames=roomNames.map(x=>x===n?trimmed:x);saveRoomNames();fillRoomChoice(trimmed);drawRoomList()};const del=document.createElement('button');del.type='button';del.textContent='🗑';del.title='Naam uit keuzelijst verwijderen';del.onclick=()=>{if(!confirm('"'+n+'" uit de keuzelijst verwijderen? Bestaande plannen blijven ongewijzigd.'))return;roomNames=roomNames.filter(x=>x!==n);saveRoomNames();fillRoomChoice();drawRoomList()};r.append(t,edit,del);roomList.append(r)}}
+document.getElementById('roomManageToggle').onclick=()=>{roomManage.hidden=!roomManage.hidden;drawRoomList()};
+document.getElementById('roomAdd').onclick=()=>{const n=roomNew.value.trim();if(!n)return;if(roomNames.some(x=>x.toLocaleLowerCase('nl')===n.toLocaleLowerCase('nl')))return alert('Deze naam staat al in de lijst.');roomNames.push(n);saveRoomNames();fillRoomChoice(n);drawRoomList();roomNew.value=''};
+document.getElementById('roomCancel').onclick=()=>{roomPlacement=null;roomDialog.close()};
+function nextBedroomName(){let n=1;const used=new Set(items().filter(o=>o.type==='name').map(o=>o.text.toLocaleLowerCase('nl')));while(used.has('slaapkamer '+n))n++;return 'Slaapkamer '+n}
+document.getElementById('roomApply').onclick=()=>{if(!roomPlacement)return;let n=roomChoice.value;if(!n)return alert('Voeg eerst een ruimtenaam toe.');checkpoint();items().push({type:'name',x:snap(roomPlacement.x),y:snap(roomPlacement.y),text:n,fontSize:28});persist();render();roomPlacement=null;roomDialog.close()};
+roomDialog.addEventListener('close',()=>{roomPlacement=null});
+function chooseRoomName(p){roomPlacement={...p};roomManage.hidden=true;fillRoomChoice();roomDialog.showModal()}
+// Kamers bestaan uit vier afzonderlijk bewerkbare muren. Bestaande projecten worden
+// bij het openen per verdieping omgezet; alle overige objecten blijven behouden.
+function roomWalls(room){
+ const x1=Math.min(room.a.x,room.b.x),x2=Math.max(room.a.x,room.b.x);
+ const y1=Math.min(room.a.y,room.b.y),y2=Math.max(room.a.y,room.b.y);
+ const p=[{x:x1,y:y1},{x:x2,y:y1},{x:x2,y:y2},{x:x1,y:y2}];
+ return p.map((a,i)=>({type:'wall',a:{...a},b:{...p[(i+1)%4]}}));
+}
+function items(){
+ const arr=project[floor]||(project[floor]=[]);
+ if(arr.some(o=>o.type==='room')){
+  const converted=arr.flatMap(o=>o.type==='room'?roomWalls(o):[o]);
+  arr.splice(0,arr.length,...converted);
+ }
+ return arr;
+}const snap=n=>Math.round(n/10)*10;const metres=n=>(n/100).toFixed(2).replace('.',',')+' m';function el(tag,attrs={},parent=objects){const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.append(e);return e}function coords(ev){const r=svg.getBoundingClientRect();return{x:(ev.clientX-r.left-offset.x)/zoom,y:(ev.clientY-r.top-offset.y)/zoom}}function screen(p){return{x:p.x*zoom+offset.x,y:p.y*zoom+offset.y}}function checkpoint(){history.push(JSON.stringify(project));if(history.length>50)history.shift()}const saveIndicator=document.getElementById('saveIndicator');let saveFailed=false;
+function saveState(state,message){saveIndicator.dataset.state=state;saveIndicator.textContent=message;saveFailed=state==='error'}
+function persist(){
+ saveState('saving','◌ Bezig met opslaan…');
+ try{
+  collection[activeProject].floors=project;
+  collection[activeProject].updated=new Date().toISOString();
+  const serialized=JSON.stringify({version:1,active:activeProject,projects:collection});
+  localStorage.setItem(STORE,serialized);
+  // Controleer of de gegevens na schrijven daadwerkelijk kunnen worden teruggelezen.
+  if(localStorage.getItem(STORE)!==serialized)throw Error('Opslagcontrole mislukt');
+  saveState('saved','✓ Alle wijzigingen opgeslagen op deze iPad');
+  return true;
+ }catch(e){
+  console.warn('Lokale opslag niet beschikbaar',e);
+  saveState('error','⚠ Opslaan mislukt — sluit het project niet af!');
+  status.textContent='Waarschuwing: automatisch opslaan is mislukt. Exporteer onmiddellijk een projectbestand.';
+  return false;
+ }
+}function setupGrid(){
+ // Het raster hoort bij het scherm, niet bij een begrensd vierkant in de tekening.
+ grid.replaceChildren();updateGridBackground();
+}
+function updateGridBackground(){
+ if(!dims.checked){svg.style.backgroundImage='none';return}
+ const step=50*zoom;
+ const x=((offset.x%step)+step)%step,y=((offset.y%step)+step)%step;
+ svg.style.backgroundColor='#fff';
+ svg.style.backgroundImage='linear-gradient(to right, #c4d5da 1px, transparent 1px),linear-gradient(to bottom, #c4d5da 1px, transparent 1px)';
+ svg.style.backgroundSize=`${step}px ${step}px`;
+ svg.style.backgroundPosition=`${x}px ${y}px`;
+}
+function updateTransform(){vp.setAttribute('transform',`translate(${offset.x} ${offset.y}) scale(${zoom})`);updateGridBackground()}function line(a,b,attrs={},parent=objects){return el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,...attrs},parent)}function label(x,y,text,parent=objects){const t=el('text',{x,y,'font-size':13,'text-anchor':'middle',fill:'#314f5b','paint-order':'stroke',stroke:'white','stroke-width':4},parent);t.textContent=text;return t}function updateWallMeasure(){const btn=document.getElementById('wallMeasure');const chosen=new Set([...multi]);if(selected!==null&&selected>=0)chosen.add(selected);const ids=[...chosen].filter(i=>i>=0&&i<items().length);const wall=ids.length===1?items()[ids[0]]:null;if(wall?.type==='wall'){btn.disabled=false;btn.textContent='Maat: '+metres(Math.hypot(wall.b.x-wall.a.x,wall.b.y-wall.a.y));btn.title='Tik om de muurlengte te wijzigen'}else{btn.disabled=true;btn.textContent='Maat: —';btn.title='Selecteer één muur om de lengte te wijzigen'}}function render(){updateWallMeasure();updateGridBackground();objects.replaceChildren();items().forEach((o,i)=>{const g=el('g',{'data-index':i});const chosen=selected===i||multi.has(i);const stroke=chosen?'#d48222':'#273b48';if(o.type==='wall'){line(o.a,o.b,{stroke,'stroke-width':7,'stroke-linecap':'round'},g);if(dims.checked){let mx=(o.a.x+o.b.x)/2,my=(o.a.y+o.b.y)/2;label(mx,my-12,metres(Math.hypot(o.b.x-o.a.x,o.b.y-o.a.y)),g)}if(mode==='endpoint'&&chosen){for(const key of ['a','b']){const p=o[key];el('circle',{cx:p.x,cy:p.y,r:Math.max(8,11/zoom),fill:'#fff',stroke:'#087f83','stroke-width':Math.max(2,3/zoom),'data-endpoint':key},g)}}}else if(o.type==='room'){el('rect',{x:Math.min(o.a.x,o.b.x),y:Math.min(o.a.y,o.b.y),width:Math.abs(o.b.x-o.a.x),height:Math.abs(o.b.y-o.a.y),fill:'none',stroke,'stroke-width':7},g);if(dims.checked){label((o.a.x+o.b.x)/2,Math.min(o.a.y,o.b.y)-10,metres(Math.abs(o.b.x-o.a.x)),g);label(Math.max(o.a.x,o.b.x)+34,(o.a.y+o.b.y)/2,metres(Math.abs(o.b.y-o.a.y)),g)}}else if(o.type==='stairs'){const w=o.w||100,h=o.h||150,angle=o.angle||0;const st=el('g',{transform:`translate(${o.x} ${o.y}) rotate(${angle})`},g);el('rect',{x:-w/2,y:-h/2,width:w,height:h,fill:'none',stroke,'stroke-width':3},st);for(let n=1;n<9;n++)line({x:-w/2,y:-h/2+n*h/9},{x:w/2,y:-h/2+n*h/9},{stroke,'stroke-width':1.5},st);line({x:0,y:h/2-15},{x:0,y:-h/2+15},{stroke:'#168185','stroke-width':2},st);el('path',{d:'M -8 '+(-h/2+25)+' L 0 '+(-h/2+12)+' L 8 '+(-h/2+25),fill:'none',stroke:'#168185','stroke-width':2},st);if(mode==='stairresize'&&chosen){for(const [hx,hy] of [['-1','-1'],['0','-1'],['1','-1'],['-1','0'],['1','0'],['-1','1'],['0','1'],['1','1']]){el('circle',{cx:Number(hx)*w/2,cy:Number(hy)*h/2,r:Math.max(7,10/zoom),fill:'#fff',stroke:'#087f83','stroke-width':Math.max(2,2.5/zoom),'data-stairhandle':hx+','+hy},st)}}}else if(o.type==='name'){const t=label(o.x,o.y,o.text,g);t.setAttribute('font-size',String(o.fontSize||28));t.setAttribute('font-weight','700');t.setAttribute('pointer-events','visiblePainted');if(chosen){t.setAttribute('fill','#d48222');t.setAttribute('stroke','#fff3e7');t.setAttribute('font-weight','700')}if(o.angle)t.setAttribute('transform',`rotate(${Number(o.angle)||0} ${o.x} ${o.y})`)}else if(o.type==='door'||o.type==='window'){const col=o.type==='door'?'#b97d35':'#238cb4';line({x:o.x-25,y:o.y},{x:o.x+25,y:o.y},{stroke:col,'stroke-width':o.type==='door'?3:6},g);if(o.type==='door')el('path',{d:`M ${o.x-25} ${o.y} A 50 50 0 0 1 ${o.x+25} ${o.y-43}`,fill:'none',stroke:col,'stroke-width':1.5},g)}})}function nearest(p){let best=-1,dist=Infinity;items().forEach((o,i)=>{let d=Infinity;if(o.type==='wall'){let vx=o.b.x-o.a.x,vy=o.b.y-o.a.y,t=Math.max(0,Math.min(1,((p.x-o.a.x)*vx+(p.y-o.a.y)*vy)/(vx*vx+vy*vy||1)));d=Math.hypot(p.x-o.a.x-t*vx,p.y-o.a.y-t*vy)}else if(o.type==='room'){let x1=Math.min(o.a.x,o.b.x),x2=Math.max(o.a.x,o.b.x),y1=Math.min(o.a.y,o.b.y),y2=Math.max(o.a.y,o.b.y);d=Math.min(Math.abs(p.x-x1),Math.abs(p.x-x2),Math.abs(p.y-y1),Math.abs(p.y-y2));if(p.x<x1-15||p.x>x2+15||p.y<y1-15||p.y>y2+15)d=Infinity}else if(o.type==='stairs')d=Math.max(Math.abs(p.x-o.x)-(o.w||100)/2,Math.abs(p.y-o.y)-(o.h||150)/2,0);else if(o.type==='name'){const size=o.fontSize||28,angle=(Number(o.angle)||0)*Math.PI/180,dx=p.x-o.x,dy=p.y-o.y,lx=dx*Math.cos(angle)+dy*Math.sin(angle),ly=-dx*Math.sin(angle)+dy*Math.cos(angle);const width=Math.max(size, (o.text||'').length*size*.56);d=Math.hypot(Math.max(0,Math.abs(lx)-width/2),Math.max(0,Math.abs(ly+size*.3)-size*.75))}else d=Math.hypot(p.x-o.x,p.y-o.y);if(d<dist){dist=d;best=i}});return dist<25/zoom?best:-1}function snapTargets(excludeIndex=-1,excludeKey=null){const pts=[];items().forEach((o,i)=>{if(o.type==='wall'){for(const key of ['a','b'])if(!(i===excludeIndex&&key===excludeKey))pts.push({...o[key],kind:'muureindpunt'})}else if(o.type==='room'){const x1=Math.min(o.a.x,o.b.x),x2=Math.max(o.a.x,o.b.x),y1=Math.min(o.a.y,o.b.y),y2=Math.max(o.a.y,o.b.y);for(const x of [x1,x2])for(const y of [y1,y2])pts.push({x,y,kind:'kamerhoek'})}});return pts}
+function nearestSnap(p,excludeIndex=-1,excludeKey=null){let best=null,dist=Infinity;for(const q of snapTargets(excludeIndex,excludeKey)){const d=Math.hypot(q.x-p.x,q.y-p.y);if(d<dist){dist=d;best=q}}return dist<=Math.max(8,22/zoom)?best:null}
+function snapped(p){const q=nearestSnap(p);return q?{x:q.x,y:q.y}:{x:snap(p.x),y:snap(p.y)}}
+// Lengtesnap: alleen bij vrijwel evenwijdige muren en wanneer de getekende
+// lengte dicht bij de referentielengte ligt. Bestaande aansluitpunten gaan voor.
+function equalLengthTarget(a,b){
+ if(!lengthsnap.checked||mode!=='wall')return null;
+ const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy);
+ if(len<20)return null;
+ const ux=dx/len,uy=dy/len;
+ let best=null,bestError=Infinity;
+ const tolerance=Math.min(18,Math.max(8,14/zoom));
+ for(const o of items()){
+  if(o.type!=='wall')continue;
+  const vx=o.b.x-o.a.x,vy=o.b.y-o.a.y,refLen=Math.hypot(vx,vy);
+  if(refLen<20)continue;
+  // Richtingen mogen gelijk of tegengesteld zijn (max. circa 5 graden).
+  const alignment=Math.abs((dx*vx+dy*vy)/(len*refLen));
+  if(alignment<Math.cos(5*Math.PI/180))continue;
+  const error=Math.abs(refLen-len);
+  if(error<=tolerance&&error<bestError){bestError=error;best={x:a.x+ux*refLen,y:a.y+uy*refLen};}
+ }
+ return best;
+}
+function drawTarget(p){
+ // Bestaande aansluitpunten hebben voorrang op richtingsvergrendeling.
+ const target=nearestSnap(p);
+ if(target)return {x:target.x,y:target.y};
+ let b=snapped(p);
+ if(mode==='wall'&&straight.checked){
+   // Binnen 15 graden van horizontaal/verticaal: exact recht.
+   const dx=p.x-start.x,dy=p.y-start.y;
+   if(Math.hypot(dx,dy)>0){
+     const threshold=Math.tan(Math.PI/12);
+     if(Math.abs(dy)<=Math.abs(dx)*threshold)b.y=start.y;
+     else if(Math.abs(dx)<=Math.abs(dy)*threshold)b.x=start.x;
+   }
+ }
+ if(mode==='wall'){
+   const equal=equalLengthTarget(start,b);
+   if(equal)return equal;
+ }
+ return b;
+}
+function resetSelection(){selected=null;multi.clear();render()}function selectionIndices(){return [...multi].filter(i=>i>=0&&i<items().length)}function selectionBounds(o){if(o.a)return {minx:Math.min(o.a.x,o.b.x),maxx:Math.max(o.a.x,o.b.x),miny:Math.min(o.a.y,o.b.y),maxy:Math.max(o.a.y,o.b.y)};return {minx:o.x-(o.w||0)/2,maxx:o.x+(o.w||0)/2,miny:o.y-(o.h||0)/2,maxy:o.y+(o.h||0)/2}}function nearestEndpoint(p,excludeIndex,excludeKey){return nearestSnap(p,excludeIndex,excludeKey)}
+// Eindpuntbewerking: snappen op andere eindpunten, kamerhoeken en lijnstukken.
+function endpointTarget(p,index,key){
+ const wall=items()[index],anchor=wall[key==='a'?'b':'a'];
+ const radius= Math.max(8,22/zoom);
+ const candidates=[];
+ const add=(q,kind)=>{if(Math.hypot(q.x-p.x,q.y-p.y)<=radius)candidates.push({x:q.x,y:q.y,kind});};
+ items().forEach((o,i)=>{
+   if(i===index)return;
+   if(o.type==='wall'){
+     add(o.a,'muureindpunt');add(o.b,'muureindpunt');
+     const vx=o.b.x-o.a.x,vy=o.b.y-o.a.y,len2=vx*vx+vy*vy;
+     if(len2>1){const t=Math.max(0,Math.min(1,((p.x-o.a.x)*vx+(p.y-o.a.y)*vy)/len2));add({x:o.a.x+t*vx,y:o.a.y+t*vy},'lijnstuk')}
+   }else if(o.type==='room'){
+     const x1=Math.min(o.a.x,o.b.x),x2=Math.max(o.a.x,o.b.x),y1=Math.min(o.a.y,o.b.y),y2=Math.max(o.a.y,o.b.y);
+     for(const x of [x1,x2])for(const y of [y1,y2])add({x,y},'kamerhoek');
+     add({x:Math.max(x1,Math.min(x2,p.x)),y:y1},'kamerwand');
+     add({x:Math.max(x1,Math.min(x2,p.x)),y:y2},'kamerwand');
+     add({x:x1,y:Math.max(y1,Math.min(y2,p.y))},'kamerwand');
+     add({x:x2,y:Math.max(y1,Math.min(y2,p.y))},'kamerwand');
+   }
+ });
+ candidates.sort((a,b)=>Math.hypot(a.x-p.x,a.y-p.y)-Math.hypot(b.x-p.x,b.y-p.y));
+ if(candidates.length)return candidates[0];
+ let q={x:p.x,y:p.y},kind='vrij';
+ if(straight.checked){const dx=p.x-anchor.x,dy=p.y-anchor.y,tan=Math.tan(Math.PI/12);
+   if(Math.abs(dy)<=Math.abs(dx)*tan){q.y=anchor.y;kind='horizontaal'}
+   else if(Math.abs(dx)<=Math.abs(dy)*tan){q.x=anchor.x;kind='verticaal'}
+ }
+ return {...q,kind};
+}
+function endpointHit(p){if(selected===null||selected<0)return null;const o=items()[selected];if(!o||o.type!=='wall')return null;let best=null,dist=Infinity;for(const key of ['a','b']){const d=Math.hypot(p.x-o[key].x,p.y-o[key].y);if(d<dist){dist=d;best=key}}return dist<=22/zoom?best:null}
+function constrained(a,b){let dx=b.x-a.x,dy=b.y-a.y;if(Math.abs(dx)<Math.abs(dy)*.18)b.x=a.x;else if(Math.abs(dy)<Math.abs(dx)*.18)b.y=a.y;return b}function showPreview(p){preview.replaceChildren();if(!start)return;let b=drawTarget(p);if(mode==='wall')line(start,b,{stroke:'#167d80','stroke-width':4,'stroke-dasharray':'7 4'},preview);else el('rect',{x:Math.min(start.x,b.x),y:Math.min(start.y,b.y),width:Math.abs(b.x-start.x),height:Math.abs(b.y-start.y),fill:'#167d8012',stroke:'#167d80','stroke-width':3,'stroke-dasharray':'7 4'},preview);let txt=mode==='wall'?metres(Math.hypot(b.x-start.x,b.y-start.y)):metres(Math.abs(b.x-start.x))+' × '+metres(Math.abs(b.y-start.y));let sp=screen({x:(start.x+b.x)/2,y:(start.y+b.y)/2});live.style.display='block';live.style.left=Math.min(svg.clientWidth-130,Math.max(8,sp.x))+'px';live.style.top=Math.max(5,sp.y-42)+'px';live.textContent=txt}function translate(o,dx,dy){if(o.a){o.a.x+=dx;o.a.y+=dy;o.b.x+=dx;o.b.y+=dy}else{o.x+=dx;o.y+=dy}}function projectOnWall(p,o){const vx=o.b.x-o.a.x,vy=o.b.y-o.a.y;return Math.max(0,Math.min(1,((p.x-o.a.x)*vx+(p.y-o.a.y)*vy)/(vx*vx+vy*vy||1)))}function cutWall(i,p1,p2){const o=items()[i];if(!o||o.type!=='wall')return false;let t1=projectOnWall(p1,o),t2=projectOnWall(p2,o);if(t1>t2)[t1,t2]=[t2,t1];if(t2-t1<.005)return false;const point=t=>({x:o.a.x+(o.b.x-o.a.x)*t,y:o.a.y+(o.b.y-o.a.y)*t});const replacement=[];if(t1>.001)replacement.push({type:'wall',a:{...o.a},b:point(t1)});if(t2<.999)replacement.push({type:'wall',a:point(t2),b:{...o.b}});items().splice(i,1,...replacement);return true}
+// CAD-achtig bijknippen: tik op een muurdeel tussen twee snijpunten of een eindpunt.
+function trimAt(p){
+ const all=items(),i=nearest(p),o=all[i];
+ if(i<0||o?.type!=='wall')return 'Tik op een muurdeel dat je wilt wegknippen.';
+ const ax=o.a.x,ay=o.a.y,dx=o.b.x-ax,dy=o.b.y-ay,L2=dx*dx+dy*dy;
+ if(L2<1)return 'Deze muur is te kort om bij te knippen.';
+ const cross=(x,y,u,v)=>x*v-y*u;
+ const cuts=[0,1];
+ function intersect(c,d){
+  const ex=d.x-c.x,ey=d.y-c.y,den=cross(dx,dy,ex,ey);
+  if(Math.abs(den)<1e-8)return;
+  const rx=c.x-ax,ry=c.y-ay,t=cross(rx,ry,ex,ey)/den,u=cross(rx,ry,dx,dy)/den;
+  if(t>1e-5&&t<1-1e-5&&u>=-1e-5&&u<=1+1e-5)cuts.push(t);
+ }
+ all.forEach((other,j)=>{
+  if(j===i)return;
+  if(other.type==='wall')intersect(other.a,other.b);
+  else if(other.type==='room'){
+   const x1=Math.min(other.a.x,other.b.x),x2=Math.max(other.a.x,other.b.x);
+   const y1=Math.min(other.a.y,other.b.y),y2=Math.max(other.a.y,other.b.y);
+   const q=[{x:x1,y:y1},{x:x2,y:y1},{x:x2,y:y2},{x:x1,y:y2}];
+   for(let k=0;k<4;k++)intersect(q[k],q[(k+1)%4]);
+  }
+ });
+ cuts.sort((a,b)=>a-b);
+ const uniq=cuts.filter((t,j)=>j===0||t-cuts[j-1]>1e-5);
+ if(uniq.length<=2)return 'Geen kruising gevonden op deze muur. Gebruik Wis stuk om vrij te wissen.';
+ const t=projectOnWall(p,o),eps=Math.min(.00001,0.1/Math.sqrt(L2));
+ let k=uniq.findIndex((v,j)=>j<uniq.length-1&&t>=v-eps&&t<=uniq[j+1]+eps);
+ if(k<0)k=uniq.length-2;
+ // Bij een tik precies op een kruising niet willekeurig een kant wegknippen.
+ if(Math.min(Math.abs(t-uniq[k]),Math.abs(t-uniq[k+1]))*Math.sqrt(L2)<Math.min(5,9/zoom))
+  return 'Tik iets verder van het snijpunt, op het stukje dat weg moet.';
+ const left=uniq[k],right=uniq[k+1],point=t=>({x:ax+dx*t,y:ay+dy*t});
+ const replacement=[];
+ if(left>1e-5)replacement.push({type:'wall',a:{...o.a},b:point(left)});
+ if(right<1-1e-5)replacement.push({type:'wall',a:point(right),b:{...o.b}});
+ checkpoint();all.splice(i,1,...replacement);selected=null;multi.clear();persist();render();
+ return 'Muurdeel weggeknipt. Met Ongedaan maken kun je dit herstellen.';
+}
+// 2.2.31: enkel een werkelijk vrij muureindpunt mag automatisch worden versleept.
+function freeWallEnd(p){
+ const radius=Math.min(16,Math.max(5,13/zoom));
+ const candidates=[];
+ items().forEach((o,i)=>{if(o.type==='wall')for(const key of ['a','b']){
+  const q=o[key],d=Math.hypot(p.x-q.x,p.y-q.y);
+  if(d<=radius)candidates.push({index:i,key,point:q,d});
+ }});
+ candidates.sort((a,b)=>a.d-b.d);
+ if(!candidates.length)return null;
+ const c=candidates[0];
+ // Niet bij samenkomende muren, kamerhoeken of een eindpunt op een andere muur.
+ const near=Math.max(2,5/zoom);
+ for(let i=0;i<items().length;i++){
+  const o=items()[i];if(i===c.index)continue;
+  if(o.type==='wall'){
+   const vx=o.b.x-o.a.x,vy=o.b.y-o.a.y,den=vx*vx+vy*vy;
+   const t=den?Math.max(0,Math.min(1,((c.point.x-o.a.x)*vx+(c.point.y-o.a.y)*vy)/den)):0;
+   if(Math.hypot(c.point.x-(o.a.x+t*vx),c.point.y-(o.a.y+t*vy))<=near)return null;
+  }else if(o.type==='room'){
+   const x1=Math.min(o.a.x,o.b.x),x2=Math.max(o.a.x,o.b.x),y1=Math.min(o.a.y,o.b.y),y2=Math.max(o.a.y,o.b.y);
+   if((Math.abs(c.point.x-x1)<=near||Math.abs(c.point.x-x2)<=near)&&c.point.y>=y1-near&&c.point.y<=y2+near)return null;
+   if((Math.abs(c.point.y-y1)<=near||Math.abs(c.point.y-y2)<=near)&&c.point.x>=x1-near&&c.point.x<=x2+near)return null;
+  }
+ }
+ return c;
+}
+function autoEndTarget(p,original,anchor){
+ let q={x:snap(p.x),y:snap(p.y)};
+ if(straight.checked){
+  const dx=original.x-anchor.x,dy=original.y-anchor.y;
+  if(Math.abs(dy)<1e-5)q.y=anchor.y;
+  else if(Math.abs(dx)<1e-5)q.x=anchor.x;
+  else {const tan=Math.tan(Math.PI/12);const vx=q.x-anchor.x,vy=q.y-anchor.y;
+   if(Math.abs(vy)<=Math.abs(vx)*tan)q.y=anchor.y;
+   else if(Math.abs(vx)<=Math.abs(vy)*tan)q.x=anchor.x;
+  }
+ }
+ return q;
+}
+svg.addEventListener('pointerdown',ev=>{if(ev.button!==0)return;ev.preventDefault();svg.setPointerCapture(ev.pointerId);if(ev.pointerType==='touch'){touches.set(ev.pointerId,{x:ev.clientX,y:ev.clientY});if(touches.size===2){const t=[...touches.values()],mx=(t[0].x+t[1].x)/2,my=(t[0].y+t[1].y)/2;gesture={distance:Math.hypot(t[1].x-t[0].x,t[1].y-t[0].y),zoom,offset:{...offset},center:{x:mx,y:my}};drag=null;start=null;preview.replaceChildren();live.style.display='none';return}if(touches.size>2)return}if(gesture)return;let p=coords(ev);drag={pointer:ev.pointerId,at:p,last:p,moved:false,clientX:ev.clientX,clientY:ev.clientY};if(mode==='wall'||mode==='room'){
+ const hit=mode==='wall'?freeWallEnd(p):null;
+ if(hit){drag.autoEnd={index:hit.index,key:hit.key,original:{...hit.point},anchor:{...items()[hit.index][hit.key==='a'?'b':'a']}};
+  selected=hit.index;multi.clear();render();status.textContent='Sleep langs de muur om de lengte aan te passen, of haaks/schuin om een nieuwe muur te tekenen.';
+ }else{start=snapped(p);showPreview(p)}
+ }else if(mode==='select'){const target=ev.target.closest?.('[data-index]');
+ const hitIndex=target?Number(target.getAttribute('data-index')):NaN;
+ const i=Number.isInteger(hitIndex)&&items()[hitIndex]?.type==='name'?hitIndex:nearest(p);
+ if(i>=0&&items()[i]?.type==='name'){
+  selected=i;multi.clear();multi.add(i);drag.nameMove={index:i,start:{x:items()[i].x,y:items()[i].y}};
+  render();status.textContent='Ruimtenaam geselecteerd. Sleep meteen om te verplaatsen, of gebruik Draai 90°.';
+ }else{
+  if(i<0){
+   // Een tik op een leeg deel van het tekenvlak heft de hele selectie op.
+   selected=null;multi.clear();editing=null;
+   render();status.textContent='Alles gedeselecteerd. Tik op een onderdeel om het opnieuw te selecteren.';
+  }else{
+   if(multi.has(i)){multi.delete(i);if(selected===i)selected=selectionIndices().at(-1)??null}
+   else{multi.add(i);selected=i}
+   render();status.textContent=multi.size+' onderdeel(en) geselecteerd. Kies Verplaats selectie om muren en andere onderdelen te verschuiven.';
+  }
+ }}else if(mode==='boxselect'){boxStart=p;preview.replaceChildren()}else if(mode==='endpoint'){let key=endpointHit(p);if(key){drag.endpoint=key;drag.original={...items()[selected][key]};status.textContent='Sleep het eindpunt. Automatisch recht en snappen op eindpunten of bestaande lijnstukken.'}else{selected=nearest(p);render();drag=null;status.textContent='Tik op een muur, daarna op een ronde handgreep om het eindpunt te verplaatsen.'}}else if(mode==='stairresize'){const handle=ev.target.closest('[data-stairhandle]');const idx=handle?Number(handle.closest('[data-index]')?.getAttribute('data-index')):NaN;if(handle&&Number.isInteger(idx)&&items()[idx]?.type==='stairs'){selected=idx;const o=items()[idx];const [hx,hy]=handle.getAttribute('data-stairhandle').split(',').map(Number);drag.resize={idx,hx,hy,w:o.w||100,h:o.h||150,x:o.x,y:o.y,angle:o.angle||0};status.textContent='Sleep de handgreep om de trap groter of kleiner te maken.'}else{const i=nearest(p);selected=i>=0&&items()[i]?.type==='stairs'?i:null;multi.clear();if(selected!==null)multi.add(selected);drag=null;render();status.textContent=selected===null?'Tik op een trap om de handgrepen te tonen.':'Sleep een hoek of zijkant van de geselecteerde trap.'}}else if(mode==='erase'){let i=nearest(p);if(i>=0){checkpoint();items().splice(i,1);multi.clear();selected=null;persist();render()}}else if(mode==='trim'){status.textContent=trimAt(p);drag=null;return}else if(mode==='cut'){selected=nearest(p);if(selected>=0&&items()[selected].type==='wall'){cutStart=p;status.textContent='Sleep langs de muur over het deel dat moet verdwijnen.'}}else if(mode==='moveall'){checkpoint()}else if(mode==='move'){if(!multi.size&&selected!==null&&selected>=0)multi.add(selected);if(!multi.size){drag=null;status.textContent='Selecteer eerst een of meerdere muren.'}else{drag.group=selectionIndices();drag.moved=false}}else if(mode==='pan'){}else if(mode==='stairs'){checkpoint();items().push({type:'stairs',x:snap(p.x),y:snap(p.y),w:100,h:150,angle:0});persist();selected=null;drag=null;render();setMode('pan')}else if(mode==='name'){chooseRoomName(p)}else{selected=null;render()}});svg.addEventListener('pointermove',ev=>{if(touches.has(ev.pointerId)){touches.set(ev.pointerId,{x:ev.clientX,y:ev.clientY});if(gesture&&touches.size>=2){const t=[...touches.values()],d=Math.max(1,Math.hypot(t[1].x-t[0].x,t[1].y-t[0].y)),z=Math.max(.2,Math.min(6,gesture.zoom*d/Math.max(1,gesture.distance))),rect=svg.getBoundingClientRect(),center={x:(t[0].x+t[1].x)/2-rect.left,y:(t[0].y+t[1].y)/2-rect.top},old={x:gesture.center.x-rect.left,y:gesture.center.y-rect.top};zoom=z;offset={x:center.x-(old.x-gesture.offset.x)*z/gesture.zoom,y:center.y-(old.y-gesture.offset.y)*z/gesture.zoom};updateTransform();return}}if(!drag||drag.pointer!==ev.pointerId)return;let p=coords(ev);if(drag.nameMove){
+ const r=drag.nameMove,o=items()[r.index];
+ if(o?.type==='name'){
+  const dx=p.x-drag.at.x,dy=p.y-drag.at.y;
+  if(!drag.moved&&Math.hypot(dx,dy)>3/zoom){checkpoint();drag.moved=true}
+  if(drag.moved){o.x=r.start.x+dx;o.y=r.start.y+dy;render();status.textContent='Ruimtenaam verplaatsen · laat los om op te slaan.'}
+ }
+ drag.last=p;return;
+}if(drag.autoEnd){
+ const r=drag.autoEnd,o=items()[r.index];if(!o)return;
+ const dx=p.x-r.original.x,dy=p.y-r.original.y,travel=Math.hypot(dx,dy);
+ // Een beweging langs de bestaande muur wijzigt de lengte.
+ // Een beweging in een andere richting tekent een nieuwe muur vanaf het eindpunt.
+ if(!r.action&&travel>Math.max(12,15/zoom)){
+  const wx=r.original.x-r.anchor.x,wy=r.original.y-r.anchor.y;
+  const alignment=Math.abs((dx*wx+dy*wy)/(travel*Math.hypot(wx,wy)||1));
+  r.action=alignment>=Math.cos(25*Math.PI/180)?'resize':'new';
+  if(r.action==='resize'){checkpoint();drag.moved=true}
+  else {start={...r.original};selected=null;multi.clear();render()}
+ }
+ if(r.action==='resize'){
+  const q=autoEndTarget(p,r.original,r.anchor);
+  if(Math.hypot(q.x-r.anchor.x,q.y-r.anchor.y)>=5){o[r.key]=q;render();status.textContent='Muurlengte: '+metres(Math.hypot(o.b.x-o.a.x,o.b.y-o.a.y))+' · laat los om te bewaren.'}
+ }else if(r.action==='new'){
+  showPreview(p);
+  status.textContent='Nieuwe muur vanaf bestaand eindpunt · laat los om te tekenen.';
+ }
+}else if(start)showPreview(p);else if(mode==='endpoint'&&drag.endpoint&&selected!==null&&items()[selected]?.type==='wall'){const o=items()[selected],key=drag.endpoint;if(!drag.moved){checkpoint();drag.moved=true}const target=endpointTarget(p,selected,key);o[key]={x:target.x,y:target.y};render();preview.replaceChildren();if(target.kind!=='vrij')el('circle',{cx:target.x,cy:target.y,r:Math.max(6,9/zoom),fill:'none',stroke:'#0c9690','stroke-width':Math.max(2,3/zoom)},preview);status.textContent='Eindpunt aanpassen · '+metres(Math.hypot(o.b.x-o.a.x,o.b.y-o.a.y))+' · '+target.kind}else if(mode==='stairresize'&&drag.resize){const r=drag.resize,o=items()[r.idx];if(o){const dx=p.x-drag.at.x,dy=p.y-drag.at.y,a=r.angle*Math.PI/180;const lx=dx*Math.cos(a)+dy*Math.sin(a),ly=-dx*Math.sin(a)+dy*Math.cos(a);const nw=r.hx?Math.max(20,r.w+r.hx*lx):r.w,nh=r.hy?Math.max(20,r.h+r.hy*ly):r.h;const shiftx=r.hx?(nw-r.w)*r.hx/2:0,shifty=r.hy?(nh-r.h)*r.hy/2:0;if(!drag.moved&&Math.hypot(dx,dy)>2/zoom){checkpoint();drag.moved=true}if(drag.moved){o.w=nw;o.h=nh;o.x=r.x+shiftx*Math.cos(a)-shifty*Math.sin(a);o.y=r.y+shiftx*Math.sin(a)+shifty*Math.cos(a);render();status.textContent='Trap: '+metres(o.w)+' breed × '+metres(o.h)+' lang.'}}}else if(mode==='move'&&drag.group?.length){const dx=p.x-drag.last.x,dy=p.y-drag.last.y;if(Math.hypot(p.x-drag.at.x,p.y-drag.at.y)>3/zoom){if(!drag.moved)checkpoint();drag.moved=true;drag.group.forEach(i=>{if(items()[i])translate(items()[i],dx,dy)});render()}}else if(mode==='boxselect'&&boxStart){preview.replaceChildren();el('rect',{x:Math.min(boxStart.x,p.x),y:Math.min(boxStart.y,p.y),width:Math.abs(p.x-boxStart.x),height:Math.abs(p.y-boxStart.y),fill:'#167d8015',stroke:'#167d80','stroke-width':2,'stroke-dasharray':'7 4'},preview)}else if(mode==='pan'){offset.x+=ev.clientX-drag.clientX;offset.y+=ev.clientY-drag.clientY;drag.clientX=ev.clientX;drag.clientY=ev.clientY;updateTransform()}else if(mode==='moveall'){let dx=p.x-drag.last.x,dy=p.y-drag.last.y;if(Math.hypot(p.x-drag.at.x,p.y-drag.at.y)>3/zoom){drag.moved=true;items().forEach(o=>translate(o,dx,dy));render()}}else if(mode==='cut'&&cutStart&&selected>=0){preview.replaceChildren();line(cutStart,p,{stroke:'#dc3434','stroke-width':9,'stroke-opacity':.5},preview)}drag.last=p});svg.addEventListener('pointerup',ev=>{if(touches.has(ev.pointerId)){touches.delete(ev.pointerId);if(gesture){if(touches.size<2)gesture=null;drag=null;return}}if(!drag||drag.pointer!==ev.pointerId)return;if(drag.autoEnd){
+ const r=drag.autoEnd;
+ if(r.action==='new'&&start){
+  const b=drawTarget(coords(ev));
+  if(Math.hypot(b.x-start.x,b.y-start.y)>5){checkpoint();items().push({type:'wall',a:{...start},b});persist();status.textContent='Nieuwe muur getekend vanaf het bestaande eindpunt.'}
+  start=null;preview.replaceChildren();live.style.display='none';render();
+ }else if(r.action==='resize'){
+  persist();render();status.textContent='Muur aangepast en automatisch opgeslagen.';
+ }else {selected=null;render();status.textContent='Sleep in de richting van de muur om te verlengen of inkorten; sleep schuin of haaks om een nieuwe muur te tekenen.'}
+ drag=null;return;
+}if(drag?.nameMove){if(drag.moved){persist();status.textContent='Ruimtenaam verplaatst en opgeslagen.'}drag=null;return}
+if(mode==='endpoint'&&drag.endpoint&&selected!==null&&items()[selected]?.type==='wall'){if(drag.moved){const o=items()[selected],key=drag.endpoint,p=coords(ev),target=nearestEndpoint(p,selected,key);if(target)o[key]={...target};if(Math.hypot(o.a.x-o.b.x,o.a.y-o.b.y)<2){o[key]=drag.original;status.textContent='Een muur mag niet nul meter lang zijn.'}persist();render();preview.replaceChildren()}drag=null;return}if(mode==='stairresize'&&drag.resize){if(drag.moved)persist();drag=null;return}if(mode==='boxselect'&&boxStart){const p=coords(ev),minx=Math.min(boxStart.x,p.x),maxx=Math.max(boxStart.x,p.x),miny=Math.min(boxStart.y,p.y),maxy=Math.max(boxStart.y,p.y);items().forEach((o,i)=>{const b=selectionBounds(o);if(b.minx>=minx&&b.maxx<=maxx&&b.miny>=miny&&b.maxy<=maxy)multi.add(i)});selected=selectionIndices().at(-1)??null;boxStart=null;preview.replaceChildren();render();status.textContent=multi.size+' onderdeel(en) geselecteerd. Kies Verplaats selectie om ze samen te verplaatsen.'}else if(mode==='cut'&&cutStart&&selected>=0){checkpoint();if(cutWall(selected,cutStart,coords(ev)))persist();selected=null;cutStart=null;render()}else if((mode==='move'||mode==='moveall')&&drag.moved){persist();setMode('pan')}if(start){let b=drawTarget(coords(ev));if(Math.hypot(b.x-start.x,b.y-start.y)>5){checkpoint();if(mode==='room'){items().push(...roomWalls({a:{...start},b}))}else{items().push({type:mode,a:{...start},b})}persist();render()}}start=null;drag=null;preview.replaceChildren();live.style.display='none';/* Tekenmodus blijft actief totdat gebruiker zelf wisselt. */});svg.addEventListener('pointercancel',ev=>{touches.delete(ev.pointerId);if(touches.size<2)gesture=null;
+ if(drag?.autoEnd&&drag.moved){const r=drag.autoEnd;if(items()[r.index])items()[r.index][r.key]=r.original;history.pop();render()}
+ start=null;drag=null;cutStart=null;boxStart=null;preview.replaceChildren();live.style.display='none'});function setMode(m){mode=m;document.querySelectorAll('.tools button').forEach(b=>b.classList.toggle('active',b.id===m));status.textContent=({wall:'Sleep een vrij muureindpunt om te verlengen of in te korten. Muren klikken vast op bestaande muureinden en kamerhoeken. Kies een ander gereedschap of Deselecteren om te stoppen.',room:'Kamerhoeken klikken vast op bestaande muureinden en kamerhoeken. Kies een ander gereedschap of Deselecteren om te stoppen.',stairs:'Tik waar de trap moet komen; selecteer hem om te verplaatsen of draaien.',pan:'Sleep om het beeld te verschuiven; twee vingers om te zoomen.',name:'Tik in de ruimte en voer een naam in.',select:'Tik op een ruimtenaam en sleep om ze te verplaatsen. Tik op een lege plek om alles te deselecteren.',boxselect:'Trek een kader rond de gewenste muren. Alleen volledig ingesloten onderdelen worden geselecteerd.',endpoint:'Tik op een muur en sleep daarna een ronde handgreep. Eindpunten klikken vast op muureinden, kamerhoeken en lijnstukken; bijna rechte muren worden automatisch uitgelijnd.',stairresize:'Sleep een hoek om lengte en breedte aan te passen, of een zijgreep om één maat te wijzigen.' ,move:'Versleep de volledige selectie als één geheel. Na loslaten terug naar Navigeren.',erase:'Tik op een muur of object om het volledig te wissen.',cut:'Sleep langs een muur om een gedeelte te wissen.',moveall:'Sleep op het tekenblad om alles tegelijk te verplaatsen.'})[m];render()}['wall','room','stairs','name','select','boxselect','endpoint','move','erase','cut','trim'].forEach(m=>document.getElementById(m).onclick=()=>setMode(m));document.getElementById('deselect').onclick=()=>{resetSelection();setMode('pan');status.textContent='Selectie opgeheven. Veilige navigatiemodus actief; er is niets verwijderd.'};document.getElementById('deleteselection').onclick=()=>{const indices=new Set(selectionIndices());if(selected!==null&&selected>=0&&selected<items().length)indices.add(selected);if(!indices.size){status.textContent='Selecteer eerst een of meerdere onderdelen om te wissen.';return}const count=indices.size;if(!confirm(count===1?'Het geselecteerde onderdeel verwijderen?':count+' geselecteerde onderdelen verwijderen?'))return;checkpoint();project[floor]=items().filter((_,i)=>!indices.has(i));selected=null;multi.clear();editing=null;persist();setMode('pan');status.textContent=count+' onderdeel(en) verwijderd. Gebruik Ongedaan om alles te herstellen.'};const textSizeDialog=document.getElementById('textSizeDialog');let textSizeIndex=null;document.getElementById('textSizeCancel').onclick=()=>textSizeDialog.close();document.getElementById('textSizeApply').onclick=()=>{const value=Number(document.getElementById('textSizeValue').value);if(!Number.isFinite(value)||value<10||value>80)return alert('Kies een tekstgrootte tussen 10 en 80.');if(textSizeIndex===null||items()[textSizeIndex]?.type!=='name')return textSizeDialog.close();checkpoint();items()[textSizeIndex].fontSize=value;persist();render();textSizeDialog.close();status.textContent='Tekstgrootte aangepast naar '+value+'.';};document.getElementById('stairsize').onclick=()=>{const chosen=new Set(selectionIndices());if(selected!==null&&selected>=0&&selected<items().length)chosen.add(selected);const ids=[...chosen];if(ids.length===1&&items()[ids[0]]?.type==='name'){textSizeIndex=ids[0];document.getElementById('textSizeValue').value=String(items()[textSizeIndex].fontSize||28);textSizeDialog.showModal();return}const idx=selected!==null&&items()[selected]?.type==='stairs'?selected:selectionIndices().find(i=>items()[i]?.type==='stairs');if(idx===undefined||idx===null){status.textContent='Selecteer eerst één trap of ruimtenaam via Selecteren.';return}selected=idx;multi.clear();multi.add(idx);setMode('stairresize')};document.getElementById('stairrotate').onclick=()=>{const chosen=new Set(selectionIndices());if(selected!==null&&selected>=0&&selected<items().length)chosen.add(selected);const ids=[...chosen];
+ const current=selected!==null&&['stairs','name'].includes(items()[selected]?.type)?selected:
+   (ids.length===1&&['stairs','name'].includes(items()[ids[0]]?.type)?ids[0]:null);
+ if(current===null){status.textContent='Selecteer een trap of ruimtenaam en druk dan op Draai 90°.';return}
+ const o=items()[current];checkpoint();o.angle=((Number(o.angle)||0)+90)%360;persist();render();status.textContent=(o.type==='stairs'?'Trap':'Ruimtenaam')+' 90° gedraaid (hoek: '+o.angle+'°).';};document.getElementById('undo').onclick=()=>{if(history.length){project=JSON.parse(history.pop());selected=null;multi.clear();persist();render()}};document.getElementById('save').onclick=()=>{if(persist())alert('Project '+activeProject+' lokaal bewaard op dit toestel.');else alert('Opslaan is mislukt. Exporteer een projectbestand als reservekopie.')};lengthsnap.onchange=()=>{status.textContent=lengthsnap.checked?'Slimme lengtesnap actief: bijna even lange, evenwijdige muren klikken vast.':'Slimme lengtesnap uitgeschakeld.';};floorEl.onchange=()=>{if(saveFailed&&!persist()){floorEl.value=floor;alert('Opslaan mislukt. Wissel nog niet van verdieping.');return}floor=floorEl.value;selected=null;multi.clear();updateProjectHeading();render()};dims.onchange=render;document.getElementById('duplicate').onclick=()=>{const d=document.getElementById('floorCopyDialog'),from=document.getElementById('copyFrom'),to=document.getElementById('copyTo');const floors=[...floorEl.options].map(o=>o.value);from.replaceChildren();to.replaceChildren();for(const name of floors){from.add(new Option(name,name));to.add(new Option(name,name))}to.add(new Option('+ Nieuwe verdieping','__new__'));from.value=floor;to.value=floors.find(x=>x!==floor)||'__new__';document.getElementById('copyWalls').checked=false;d.showModal()};document.getElementById('copyCancel').onclick=()=>document.getElementById('floorCopyDialog').close();document.getElementById('copyApply').onclick=()=>{const from=document.getElementById('copyFrom').value,choice=document.getElementById('copyTo').value,wallsOnly=document.getElementById('copyWalls').checked;let dest=choice;if(dest==='__new__'){const proposed='Nieuwe verdieping';dest=prompt('Naam van de nieuwe verdieping:',proposed)?.trim();if(!dest)return;if([...floorEl.options].some(o=>o.value.toLocaleLowerCase('nl')===dest.toLocaleLowerCase('nl')))return alert('Deze verdieping bestaat al. Kies een bestaande verdieping in de lijst.')}if(dest===from)return alert('Kies een andere doelverdieping.');if((project[dest]||[]).length&&!confirm('Alle bestaande onderdelen op '+dest+' vervangen?'))return;checkpoint();const source=project[from]||[];project[dest]=JSON.parse(JSON.stringify(wallsOnly?source.filter(o=>o.type==='wall'||o.type==='stairs'):source));if(![...floorEl.options].some(o=>o.value===dest))floorEl.add(new Option(dest,dest));floor=dest;floorEl.value=dest;selected=null;multi.clear();updateProjectHeading();if(!persist())return;render();document.getElementById('floorCopyDialog').close();status.textContent='Verdieping gekopieerd naar '+dest+'. De kopie kan afzonderlijk worden aangepast.'};const projectDialog=document.getElementById('projectDialog');
+function updateProjectHeading(){
+ document.getElementById('activeProjectLabel').textContent=activeProject;
+ document.getElementById('activeFloorLabel').textContent=floor;
+ document.getElementById('floorPickerLabel').textContent=activeProject+' — verdieping';
+ document.title='SB23 · '+activeProject+' — '+floor;
+}
+const baseFloors=['Gelijkvloers','Eerste verdieping','Tweede verdieping','Kelder','Zolder'];
+function syncFloorOptions(){
+ const names=[...new Set([...baseFloors,...Object.keys(project)])];
+ floorEl.replaceChildren(...names.map(n=>new Option(n,n)));
+ if(!names.includes(floor))floor=names[0];
+ floorEl.value=floor;updateProjectHeading();
+}function refreshProjectList(){const list=document.getElementById('projectList');list.replaceChildren();for(const name of Object.keys(collection).sort((a,b)=>a.localeCompare(b,'nl'))){const row=document.createElement('div');row.className='sb-project-row'+(name===activeProject?' current':'');const title=document.createElement('strong');title.textContent=name+(name===activeProject?' ✓':'');const open=document.createElement('button');open.textContent='Open';open.onclick=()=>{if(name===activeProject){projectDialog.close();return}if(!persist()){alert('Opslaan mislukt. Wissel nog niet van project.');return}activeProject=name;project=collection[name].floors||{};floor='Gelijkvloers';if(![...floorEl.options].some(o=>o.value===floor))floor=floorEl.options[0].value;syncFloorOptions();floorEl.value=floor;updateProjectHeading();history=[];selected=null;multi.clear();resetSelection();persist();render();projectDialog.close();status.textContent='Project geopend: '+name};const rename=document.createElement('button');rename.textContent='Hernoem';rename.onclick=()=>{const input=document.createElement('input');input.type='text';input.maxLength=100;input.value=name;input.setAttribute('aria-label','Nieuwe naam voor '+name);title.replaceWith(input);rename.textContent='Bewaar';const saveName=()=>{const value=input.value.trim();if(!value)return alert('Geef een projectnaam in.');if(value!==name&&collection[value])return alert('Er bestaat al een project met deze naam.');if(value!==name){collection[value]=collection[name];delete collection[name];if(activeProject===name)activeProject=value}persist();updateProjectHeading();refreshProjectList()};rename.onclick=saveName;input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveName()}});input.focus();input.select()};const del=document.createElement('button');del.textContent='Verwijder';del.onclick=()=>{if(name===activeProject)return alert('Open eerst een ander project voordat je dit verwijdert.');if(!confirm('Project "'+name+'" definitief van dit toestel verwijderen? Maak eerst een reservekopie als je het wilt bewaren.'))return;delete collection[name];persist();refreshProjectList()};row.append(title,open,rename,del);list.append(row)}}document.getElementById('projects').onclick=()=>{refreshProjectList();projectDialog.showModal();const input=document.getElementById('projectNew');input.value='';input.focus({preventScroll:true})};document.getElementById('projectClose').onclick=()=>projectDialog.close();document.getElementById('projectNew').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();document.getElementById('projectCreate').click()}});document.getElementById('projectCreate').onclick=()=>{const input=document.getElementById('projectNew'),name=input.value.trim();if(!name){input.focus();return alert('Tik eerst op het tekstvak en geef een projectnaam in.')}if(collection[name])return alert('Dit project bestaat al.');persist();collection[name]={floors:{},updated:new Date().toISOString()};activeProject=name;project=collection[name].floors;floor='Gelijkvloers';syncFloorOptions();floorEl.value=floor;updateProjectHeading();history=[];resetSelection();persist();render();input.value='';projectDialog.close();status.textContent='Nieuw project aangemaakt: '+name};function downloadProject(){persist();const payload={format:'SB23-Floorplan',version:1,name:activeProject,floors:project,exported:new Date().toISOString()};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='SB23-'+activeProject.replace(/[^a-z0-9_-]+/gi,'-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}document.getElementById('backup').onclick=downloadProject;document.getElementById('restore').onclick=()=>{document.getElementById('restoreFile').value='';document.getElementById('restoreFile').click()};document.getElementById('restoreFile').addEventListener('change',async ev=>{const file=ev.target.files?.[0];if(!file)return;try{if(file.size>15*1024*1024)throw Error('Het bestand is te groot.');const data=JSON.parse(await file.text());if(data.format!=='SB23-Floorplan'||!data.floors||typeof data.floors!=='object'||Array.isArray(data.floors))throw Error('Dit is geen geldig SB23-projectbestand.');for(const [key,arr] of Object.entries(data.floors)){if(typeof key!=='string'||!Array.isArray(arr)||arr.some(o=>!o||typeof o!=='object'||!['wall','room','stairs','name'].includes(o.type)))throw Error('Ongeldige verdieping of tekening.')}const proposed=typeof data.name==='string'?data.name:'Geïmporteerd project';let name=prompt('Naam voor geïmporteerd project:',proposed)?.trim();if(!name)return;if(collection[name])return alert('Er bestaat al een project met deze naam. Kies een andere naam.');persist();collection[name]={floors:data.floors,updated:new Date().toISOString()};activeProject=name;project=collection[name].floors;floor='Gelijkvloers';syncFloorOptions();floorEl.value=floor;updateProjectHeading();history=[];resetSelection();persist();render();status.textContent='Project geïmporteerd: '+name}catch(e){alert('Projectbestand kon niet worden geopend: '+e.message)}});document.getElementById('clear').onclick=()=>{if(confirm('Alle objecten op deze verdieping wissen?')){checkpoint();project[floor]=[];persist();render()}};function zoomAt(factor,x=svg.clientWidth/2,y=svg.clientHeight/2){const next=Math.max(.2,Math.min(6,zoom*factor));offset={x:x-(x-offset.x)*next/zoom,y:y-(y-offset.y)*next/zoom};zoom=next;updateTransform()}svg.addEventListener('gesturestart',ev=>ev.preventDefault(),{passive:false});svg.addEventListener('gesturechange',ev=>ev.preventDefault(),{passive:false});svg.addEventListener('gestureend',ev=>ev.preventDefault(),{passive:false});svg.addEventListener('wheel',ev=>{ev.preventDefault();const r=svg.getBoundingClientRect();zoomAt(ev.deltaY<0?1.12:1/1.12,ev.clientX-r.left,ev.clientY-r.top)},{passive:false});document.getElementById('zoomIn').onclick=()=>zoomAt(1.25);document.getElementById('zoomOut').onclick=()=>zoomAt(1/1.25);document.getElementById('wallMeasure').onclick=()=>{const chosen=new Set([...multi]);if(selected!==null&&selected>=0)chosen.add(selected);const ids=[...chosen].filter(i=>i>=0&&i<items().length);if(ids.length===1&&items()[ids[0]]?.type==='wall')openEditor(ids[0])};document.getElementById('fit').onclick=()=>{const all=items(),xs=[],ys=[];all.forEach(o=>{if(o.a&&o.b){xs.push(o.a.x,o.b.x);ys.push(o.a.y,o.b.y)}else if(Number.isFinite(o.x)&&Number.isFinite(o.y)){const r=o.type==='stairs'?Math.hypot(o.w||100,o.h||150)/2:25;xs.push(o.x-r,o.x+r);ys.push(o.y-r,o.y+r)}});const w=svg.getBoundingClientRect().width||svg.clientWidth,h=svg.getBoundingClientRect().height||svg.clientHeight;if(!w||!h)return;if(!xs.length){zoom=1;offset={x:w/2-300,y:h/2-220}}else{const minx=Math.min(...xs)-75,maxx=Math.max(...xs)+75,miny=Math.min(...ys)-75,maxy=Math.max(...ys)+75;zoom=Math.min(4,Math.max(.2,Math.min(w/(maxx-minx),h/(maxy-miny))));offset={x:(w-(minx+maxx)*zoom)/2,y:(h-(miny+maxy)*zoom)/2}}updateTransform()};const dialog=document.getElementById('editor'),val=document.getElementById('editValue');function openEditor(i){editing=i;const o=items()[i];document.getElementById('editorTitle').textContent=o.type==='wall'?'Muurlengte aanpassen':o.type==='room'?'Kamerafmetingen aanpassen':o.type==='name'?'Ruimtenaam aanpassen':o.type==='stairs'?'Trap draaien (of gebruik Trap vergroten/verkleinen)':'Object';document.getElementById('editorHint').textContent=o.type==='room'?'Breedte × hoogte in meter (bv. 5,20 x 4,35)':o.type==='wall'?'Lengte in meter (bv. 4,25)':o.type==='stairs'?'Draaihoek in graden (0, 90, 180, 270)':'Tekst';val.value=o.type==='wall'?(Math.hypot(o.b.x-o.a.x,o.b.y-o.a.y)/100).toFixed(2).replace('.',','):o.type==='room'?(Math.abs(o.b.x-o.a.x)/100).toFixed(2).replace('.',',')+' x '+(Math.abs(o.b.y-o.a.y)/100).toFixed(2).replace('.',','):o.type==='stairs'?String(o.angle||0):o.text||'';(dialog.showModal?dialog.showModal():dialog.setAttribute("open",""))}document.getElementById('cancel').onclick=()=>dialog.close();document.getElementById('delete').onclick=()=>{if(editing!==null){checkpoint();items().splice(editing,1);selected=null;persist();render()}dialog.close()};document.getElementById('apply').onclick=()=>{let o=items()[editing];if(!o)return;checkpoint();const num=s=>Number(s.trim().replace(',','.'));if(o.type==='wall'){let m=num(val.value);if(!(m>0&&m<1000))return alert('Geef een geldige lengte in.');let dx=o.b.x-o.a.x,dy=o.b.y-o.a.y,len=Math.hypot(dx,dy);o.b={x:o.a.x+dx/len*m*100,y:o.a.y+dy/len*m*100}}else if(o.type==='room'){let parts=val.value.toLowerCase().split(/[x×;]/).map(num);if(parts.length!==2||parts.some(n=>!(n>0&&n<1000)))return alert('Gebruik bijvoorbeeld 5,20 x 4,35');o.b={x:o.a.x+Math.sign(o.b.x-o.a.x||1)*parts[0]*100,y:o.a.y+Math.sign(o.b.y-o.a.y||1)*parts[1]*100}}else if(o.type==='stairs'){let a=num(val.value);if(!Number.isFinite(a))return alert('Geef een geldige hoek in.');o.angle=a}else if(o.type==='name')o.text=val.value.trim();persist();render();dialog.close()};function exportSvg(){const clone=svg.cloneNode(true);clone.style.backgroundImage='none';clone.querySelector('#grid')?.remove();clone.querySelectorAll('text').forEach(t=>{if(t.textContent?.trim().match(/^\d+[,.]\d+ m(?: × \d+[,.]\d+ m)?$/))t.remove()});clone.querySelector('#preview')?.remove();let bb=objects.getBBox();if(bb.width<1||bb.height<1)return alert('Teken eerst een plan.');clone.setAttribute('viewBox',`${bb.x-65} ${bb.y-65} ${bb.width+130} ${bb.height+130}`);clone.setAttribute('width',Math.ceil(bb.width+130));clone.setAttribute('height',Math.ceil(bb.height+130));clone.querySelector('#viewport')?.removeAttribute('transform');clone.setAttribute('xmlns',NS);return new XMLSerializer().serializeToString(clone)}document.getElementById('export').onclick=()=>{let s=exportSvg();if(!s)return;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'image/svg+xml'}));a.download='SB23-'+floor.toLowerCase().replaceAll(' ','-')+'.svg';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};document.getElementById('print').onclick=()=>{let s=exportSvg();if(!s)return;let w=window.open('','_blank');if(!w)return alert('Sta pop-ups toe om naar PDF te printen.');w.document.write('<html><head><title>SB23 Floorplan 2.2.31 TEST</title><style>body{margin:0;display:grid;place-items:center;height:100vh}svg{width:95vw;height:90vh}.room-dialog{width:min(94vw,460px);max-height:85dvh;overflow:auto}.room-dialog select{width:100%;padding:10px;margin:10px 0;border:1px solid #aabdc5;border-radius:8px;background:white}.room-note{font-size:13px;color:#536d77}.room-add{display:flex;gap:6px;align-items:center}.room-add input{min-width:0;flex:1}.room-add button{white-space:nowrap}.room-list{max-height:230px;overflow:auto;border:1px solid #d5e0e4;border-radius:8px;margin:8px 0}.room-entry{display:flex;align-items:center;gap:5px;padding:5px 7px;border-bottom:1px solid #e4eaed}.room-entry:last-child{border:0}.room-entry span{flex:1;overflow-wrap:anywhere}.room-entry button{padding:6px 8px;font-size:12px}.room-dialog menu{flex-wrap:wrap}.room-dialog button{touch-action:manipulation}</style></head><body>'+s+'</body></html>');w.document.close();setTimeout(()=>w.print(),350)};window.addEventListener('resize',()=>{updateTransform()});syncFloorOptions();persist();setupGrid();document.getElementById('fit').click();render();})();
+</script></body></html>
